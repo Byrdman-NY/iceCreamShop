@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar d-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg bg-light ">
+                <div class="container-fluid ">
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            
+                        </ul>
+
+                        {% if 'user_id' not in session %}
+                        <a href="/log_reg" class="btn btn-info">Login</a>
+                        {% else %}
+
+                        <a href="/logout" class="btn btn-info">Logout</a>
+                        {% endif%}
+                        
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="title">
+            <h1>My Orders</h1>
+        </div>
+
+
+        {% if not orders %}
+        <p> You have not placed any orders. Start your first one by clicking <a href="/">here</a>.</p>
+
+        {%else%}
+            {% for order in orders %}
+            <div class="card text-center w-25">
+
+                <div class="card-body" >
+                    <h5 class="card-title">Order Number: {{order.id}}</h5>
+                    <p>Vanilla Scoops: {{order.vanilla_scoops}}</p>
+
+                    <p>Chocolate Scoops: {{order.chocolate_scoops}}</p>
+
+                    <p>Strawberry Scoops: {{order.strawberry_scoops}}</p>
+
+                    <p>Special Instructions: {{order.special_instructions}}</p>
+                    
+                    <p>Order tax: ${{order.tax}}</p>
+
+                    <p>Order total: ${{order.order_amount}}</p>
+                    {% if session["user_id"] == order.user_id %}
+
+                    <a href="/edit/{{order.id}}" class="btn btn-primary">Edit</a>
+                    <a href="/destroy/{{order.id}}" class="btn btn-primary">Delete</a>
+        
+                    {% endif %}
+                </div>
+                
+            </div>
+                
+            {% endfor %}
+        {% endif %}
+        
+        
+        
+        
+
+
+</body>
+</html>

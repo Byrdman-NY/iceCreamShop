@@ -1,0 +1,13 @@
+This web application is an online store to order ice cream.
+
+A user:
+-must be logged in to place an order
+-must select at least 4 scoops of ice cream, and provide special instructions
+
+
+Each scoop of ice cream cost $3.50 
+The total amount is then taxed by .08% 
+
+Total amount is given
+
+Users can then view, edit, as well as delete all previous orders

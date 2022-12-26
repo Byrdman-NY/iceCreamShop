@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Register/Login</title>
+</head>
+<body>
+    <div class="container">
+    <div class="navbar d-flex justify-content-center">
+        <nav class="navbar navbar-expand-lg bg-light ">
+            <div class="container-fluid ">
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        
+                        {% if 'user_id' in session %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/all_orders">My Orders</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    {% if 'user_id' not in session %}
+                    <a href="/log_reg" class="btn btn-info">Login</a>
+                    {% else %}
+
+                    <a href="/logout" class="btn btn-info">Logout</a>
+                    {% endif%}
+                    
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="d-flex justify-content-around">
+
+        
+
+        <form action="/register" method="POST" class="col-4 p-4 bg-dark text-light">
+
+            <h2 class="text-primary">Register</h2>
+
+            {% with messages = get_flashed_messages(category_filter=['register']) %}
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+
+                    <strong>Registration Error:</strong>
+                    
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="form-group">
+                <label for="first_name">Enter First Name</label>
+                <input type="text" name="first_name" placeholder="Enter First Name" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="last_name">Enter Last Name</label>
+                <input type="text" name="last_name" placeholder="Enter Last Name" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="user_email">Enter Email</label>
+                <input type="text" name="user_email" placeholder="Enter Email" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="user_password">Enter Password</label>
+                <input type="password" name="user_password" placeholder="Pick Something Good" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="verify_password">Verify Password</label>
+                <input type="password" name="verify_password" placeholder="Re-enter Password" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary">
+            </div>
+            
+
+        </form>
+
+    
+
+    
+
+        
+
+        <form action="/login", method="POST" class="col-4 p-4 bg-dark text-light">
+
+            <h2 class="text-success">Login</h2>
+            
+
+
+            
+
+                {% with messages = get_flashed_messages(category_filter=['login']) %}
+                    {% if messages %}
+
+                        <div class="alert alert-danger" role="alert">
+                        <strong>Login Error:</strong>
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+
+                    {% endif %}
+                {% endwith %}
+
+            
+            
+            
+            <div class="form-group">
+                <label for="user_email">Email:</label>
+                <input type="text" name="user_email" placeholder="Enter your email" class="form-control">
+            </div>
+            
+
+            <div class="form-group">
+                <label for="user_password">Password</label>
+                <input type="password" name="user_password" placeholder="Remember it?" class="form-control">
+            </div>
+            
+
+            
+                <input type="submit" value="Login" class="btn btn-success">
+            
+            
+
+        </form>
+
+    </div>
+</div>
+</body>
+
+</html>

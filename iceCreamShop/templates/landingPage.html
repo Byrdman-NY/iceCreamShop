@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="navbar d-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg bg-light ">
+                <div class="container-fluid ">
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            {% if 'user_id' in session %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/all_orders">My Orders</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+
+                        {% if 'user_id' not in session %}
+                        <a href="/log_reg" class="btn btn-info">Login</a>
+                        {% else %}
+
+                        <a href="/logout" class="btn btn-info">Logout</a>
+                        {% endif%}
+                        
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="title d-flex justify-content-center">
+            <h1>Welcome {% if 'user_id' in session %} {{user.first_name}} {% endif %} To Lots of Ice Cream</h1>
+        </div>
+
+        {% with messages = get_flashed_messages(category_filter=['order']) %}
+                
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+
+                    <strong>Data Entry Error:</strong>
+                    
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+
+                {% endwith %}
+        <form action="/submit_order" method="POST">
+
+            <div class="ice_creams row align-items" class="row gx-5">
+
+
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/static/vanilla.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Vanilla Flavor</h5>
+                            <label for="vanilla_scoops"># of Scoops</label>
+                            <input type="int" name="vanilla_scoops" value="0">
+                            <p>$3.50 / Scoop</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/static/choco.jpeg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Chocolate Flavor</h5>
+                            <label for="chocolate_scoops"># of Scoops</label>
+                            <input type="int" name="chocolate_scoops" value="0">
+                            <p>$3.50 / Scoop</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/static/strawberry.jpeg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Strawberry Flavor</h5>
+                            <label for="strawberry_scoops"># of Scoops</label>
+                            <input type="int" name="strawberry_scoops" value="0">
+                            <p>$3.50 / Scoop</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <label for="special_instructions">Special Instrutions: </label>
+            <textarea name="special_instructions" cols="30" rows="2"></textarea>
+
+            <input type="submit" value="Submit Order" class="btn btn-success">
+        </form>
+        
+
+        
+
+
+
+    </div>
+</body>
+</html>
